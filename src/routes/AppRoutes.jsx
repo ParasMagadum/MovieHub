@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 
-import MainLayout from "../layouts/MainLayout"; // match actual case exactly
+import MainLayout from "../Layouts/MainLayout"; // match actual case exactly
 
 import Home from "../pages/Home/Home";
 import Movies from "../pages/Movies/Movies";
