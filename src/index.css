@@ -1,46 +1,82 @@
 @import "tailwindcss";
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
 
 *{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
 html{
-  scroll-behavior: smooth;
+  scroll-behavior:smooth;
 }
 
 body{
-  background-color: #020617;
-  color: white;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-a{
-  text-decoration: none;
-  color: inherit;
-}
-
-button{
-  cursor: pointer;
+  background:#111111;
+  color:white;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  overflow-x:hidden;
 }
 
 ::-webkit-scrollbar{
   width:8px;
+  height:8px;
 }
 
 ::-webkit-scrollbar-track{
-  background:#111827;
+  background:#111111;
 }
 
 ::-webkit-scrollbar-thumb{
-  background:#475569;
-  border-radius:10px;
+  background:#444;
+  border-radius:20px;
 }
 
 ::-webkit-scrollbar-thumb:hover{
-  background:#64748b;
+  background:#666;
+}
+
+.scrollbar-hide::-webkit-scrollbar{
+  display:none;
+}
+
+.scrollbar-hide{
+  -ms-overflow-style:none;
+  scrollbar-width:none;
+}
+
+img{
+  user-select:none;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  text-decoration:none;
+}
+
+.container{
+  max-width:1600px;
+  margin:auto;
+  padding-left:60px;
+  padding-right:60px;
+}
+
+@media(max-width:1024px){
+
+.container{
+padding-left:30px;
+padding-right:30px;
+}
+
+}
+
+@media(max-width:640px){
+
+.container{
+padding-left:18px;
+padding-right:18px;
+}
+
 }

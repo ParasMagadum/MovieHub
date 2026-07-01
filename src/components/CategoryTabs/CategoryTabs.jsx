@@ -1,28 +1,46 @@
+import { useState } from "react";
+
 const categories = [
   "All",
   "Action",
+  "Adventure",
   "Comedy",
   "Drama",
   "Sci-Fi",
+  "Animation",
+  "Crime",
   "Romance",
   "Horror",
-  "Animation",
 ];
 
 function CategoryTabs() {
+  const [active, setActive] = useState("All");
+
   return (
-    <div className="max-w-7xl mx-auto px-6 mb-10">
-      <div className="flex gap-4 overflow-x-auto scrollbar-hide">
+    <section className="mb-20">
+
+      <div className="flex gap-5 overflow-x-auto scrollbar-hide pb-3">
+
         {categories.map((category) => (
+
           <button
             key={category}
-            className="whitespace-nowrap px-5 py-2 rounded-full bg-slate-800 hover:bg-red-600 transition duration-300"
+            onClick={() => setActive(category)}
+            className={`whitespace-nowrap px-7 py-3 rounded-full font-semibold transition-all duration-300
+            ${
+              active === category
+                ? "bg-red-600 text-white scale-105"
+                : "bg-[#1d1d1d] text-gray-300 hover:bg-[#2b2b2b]"
+            }`}
           >
             {category}
           </button>
+
         ))}
+
       </div>
-    </div>
+
+    </section>
   );
 }
 

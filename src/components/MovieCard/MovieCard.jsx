@@ -1,50 +1,119 @@
-import { Star } from "lucide-react";
+import { Link } from "react-router-dom";
+import { FaStar, FaHeart, FaRegHeart } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
 function MovieCard({ movie }) {
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    const favorites =
+      JSON.parse(localStorage.getItem("favorites")) || [];
+
+    setIsFavorite(
+      favorites.some((item) => item.id === movie.id)
+    );
+  }, [movie.id]);
+
+  const toggleFavorite = (e) => {
+    e.preventDefault();
+
+    let favorites =
+      JSON.parse(localStorage.getItem("favorites")) || [];
+
+    if (isFavorite) {
+      favorites = favorites.filter(
+        (item) => item.id !== movie.id
+      );
+    } else {
+      favorites.push(movie);
+    }
+
+    localStorage.setItem(
+      "favorites",
+      JSON.stringify(favorites)
+    );
+
+    setIsFavorite(!isFavorite);
+  };
+
   return (
-    <div className="group bg-slate-900 rounded-xl overflow-hidden shadow-lg hover:scale-105 hover:shadow-red-500/20 transition duration-300 cursor-pointer">
-      
-      {/* Movie Poster */}
-      <div className="overflow-hidden">
-        <img
-          src={movie.image}
-          alt={movie.title}
-          className="w-full h-80 object-cover group-hover:scale-110 transition duration-500"
-        />
-      </div>
+    <Link to={`/movie/${movie.id}`}>
 
-      {/* Movie Details */}
-      <div className="p-4">
+      <div
+        className="
+        bg-[#181818]
+        rounded-2xl
+        overflow-hidden
+        transition
+        duration-300
+        hover:scale-105
+        hover:shadow-2xl
+        group
+        "
+      >
+        {/* Poster */}
 
-        <h2 className="text-lg font-bold truncate">
-          {movie.title}
-        </h2>
+        <div className="relative">
 
-        <p className="text-gray-400 text-sm mt-1">
-          {movie.genre}
-        </p>
+          <img
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            alt={movie.title}
+            className="
+            w-full
+            h-[360px]
+            object-cover
+            "
+          />
 
-        <div className="flex justify-between items-center mt-4">
+          <button
+            onClick={toggleFavorite}
+            className="
+            absolute
+            top-4
+            right-4
+            bg-black/60
+            p-3
+            rounded-full
+            hover:bg-red-600
+            transition
+            "
+          >
+            {isFavorite ? (
+              <FaHeart className="text-red-500 text-xl" />
+            ) : (
+              <FaRegHeart className="text-white text-xl" />
+            )}
+          </button>
 
-          <span className="text-gray-400 text-sm">
-            {movie.year}
-          </span>
+          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition" />
+        </div>
 
-          <div className="flex items-center gap-1">
-            <Star
-              size={18}
-              className="fill-yellow-400 text-yellow-400"
-            />
+        {/* Details */}
 
-            <span className="font-semibold">
-              {movie.rating}
+        <div className="p-5">
+
+          <h3 className="text-xl font-bold truncate">
+            {movie.title}
+          </h3>
+
+          <div className="flex justify-between mt-4">
+
+            <span className="text-gray-400">
+              {movie.release_date?.slice(0, 4)}
             </span>
+
+            <span className="flex items-center gap-2 text-yellow-400">
+              <FaStar />
+              {movie.vote_average.toFixed(1)}
+            </span>
+
           </div>
 
         </div>
 
       </div>
-    </div>
+
+    </Link>
   );
 }
 

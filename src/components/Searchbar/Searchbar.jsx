@@ -1,18 +1,35 @@
-import { Search } from "lucide-react";
+import { FaSearch } from "react-icons/fa";
 
 function Searchbar() {
   return (
-    <div className="max-w-7xl mx-auto px-6 my-10">
-      <div className="flex items-center bg-slate-800 rounded-xl px-4 py-3">
-        <Search className="text-gray-400 mr-3" size={20} />
+    <section className="mb-20">
+
+      <div className="relative max-w-3xl mx-auto">
+
+        <FaSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 text-xl" />
 
         <input
           type="text"
-          placeholder="Search movies..."
-          className="bg-transparent outline-none w-full text-white placeholder:text-gray-400"
+          placeholder="Search Movies..."
+          className="
+          w-full
+          pl-16
+          pr-6
+          py-5
+          rounded-full
+          bg-[#1d1d1d]
+          border
+          border-gray-700
+          text-lg
+          outline-none
+          focus:border-red-600
+          transition
+          "
         />
+
       </div>
-    </div>
+
+    </section>
   );
 }
 

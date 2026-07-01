@@ -1,59 +1,134 @@
-import { Search, Bell, UserCircle } from "lucide-react";
+import { Link, NavLink } from "react-router-dom";
+import { FaFilm, FaHeart, FaSearch, FaBars, FaTimes } from "react-icons/fa";
+import { useState } from "react";
 
 function Navbar() {
+  const [open, setOpen] = useState(false);
+
+  const navClass = ({ isActive }) =>
+    isActive
+      ? "text-red-500 font-semibold"
+      : "hover:text-red-500 transition";
+
   return (
-    <nav className="fixed top-0 left-0 w-full bg-slate-950/90 backdrop-blur-md z-50 shadow-lg">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        
+    <header className="sticky top-0 z-50 bg-black/90 backdrop-blur-md border-b border-gray-800">
+
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+
         {/* Logo */}
-        <div className="flex items-center gap-2">
-          <h1 className="text-3xl font-bold text-red-600 cursor-pointer">
-            MovieHub
-          </h1>
-        </div>
 
-        {/* Navigation Links */}
-        <ul className="hidden md:flex items-center gap-8 text-gray-300 font-medium">
-          <li className="hover:text-red-500 transition cursor-pointer">
+        <Link
+          to="/"
+          className="flex items-center gap-3 text-3xl font-black text-red-600"
+        >
+          <FaFilm />
+          MovieFlix
+        </Link>
+
+        {/* Desktop */}
+
+        <nav className="hidden lg:flex items-center gap-10 text-lg">
+
+          <NavLink to="/" className={navClass}>
             Home
-          </li>
+          </NavLink>
 
-          <li className="hover:text-red-500 transition cursor-pointer">
+          <NavLink to="/movies" className={navClass}>
             Movies
-          </li>
+          </NavLink>
 
-          <li className="hover:text-red-500 transition cursor-pointer">
-            TV Shows
-          </li>
+          <NavLink to="/categories" className={navClass}>
+            Categories
+          </NavLink>
 
-          <li className="hover:text-red-500 transition cursor-pointer">
+          <NavLink to="/trending" className={navClass}>
             Trending
-          </li>
+          </NavLink>
 
-          <li className="hover:text-red-500 transition cursor-pointer">
-            My List
-          </li>
-        </ul>
+          <NavLink to="/favorites" className={navClass}>
+            Favorites
+          </NavLink>
 
-        {/* Right Icons */}
-        <div className="flex items-center gap-5">
-          <Search
-            className="cursor-pointer hover:text-red-500 transition"
-            size={22}
-          />
+          <NavLink to="/about" className={navClass}>
+            About
+          </NavLink>
 
-          <Bell
-            className="cursor-pointer hover:text-red-500 transition"
-            size={22}
-          />
+        </nav>
 
-          <UserCircle
-            className="cursor-pointer hover:text-red-500 transition"
-            size={30}
-          />
+        {/* Right Side */}
+
+        <div className="hidden lg:flex items-center gap-6">
+
+          <Link
+            to="/search"
+            className="hover:text-red-500 transition"
+          >
+            <FaSearch size={22} />
+          </Link>
+
+          <Link
+            to="/favorites"
+            className="hover:text-red-500 transition"
+          >
+            <FaHeart size={22} />
+          </Link>
+
         </div>
+
+        {/* Mobile */}
+
+        <button
+          onClick={() => setOpen(!open)}
+          className="lg:hidden text-2xl"
+        >
+          {open ? <FaTimes /> : <FaBars />}
+        </button>
+
       </div>
-    </nav>
+
+      {/* Mobile Menu */}
+
+      {open && (
+
+        <div className="lg:hidden bg-[#111] px-6 pb-6">
+
+          <nav className="flex flex-col gap-5 text-lg">
+
+            <NavLink to="/" onClick={() => setOpen(false)} className={navClass}>
+              Home
+            </NavLink>
+
+            <NavLink to="/movies" onClick={() => setOpen(false)} className={navClass}>
+              Movies
+            </NavLink>
+
+            <NavLink to="/categories" onClick={() => setOpen(false)} className={navClass}>
+              Categories
+            </NavLink>
+
+            <NavLink to="/trending" onClick={() => setOpen(false)} className={navClass}>
+              Trending
+            </NavLink>
+
+            <NavLink to="/favorites" onClick={() => setOpen(false)} className={navClass}>
+              Favorites
+            </NavLink>
+
+            <NavLink to="/search" onClick={() => setOpen(false)} className={navClass}>
+              Search
+            </NavLink>
+
+            <NavLink to="/about" onClick={() => setOpen(false)} className={navClass}>
+              About
+            </NavLink>
+
+          </nav>
+
+        </div>
+
+      )}
+
+    </header>
   );
 }
 
